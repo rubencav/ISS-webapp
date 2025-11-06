@@ -58,8 +58,8 @@ $(document).ready(() => {
     datasets: [
       {
         fill: false,
-        label: 'Temperature',
-        yAxisID: 'Temperature',
+        label: 'ExhaustPipeOxygen',
+        yAxisID: 'ExhaustPipeOxygen',
         borderColor: 'rgba(255, 204, 0, 1)',
         pointBoarderColor: 'rgba(255, 204, 0, 1)',
         backgroundColor: 'rgba(255, 204, 0, 0.4)',
@@ -69,8 +69,41 @@ $(document).ready(() => {
       },
       {
         fill: false,
-        label: 'Humidity',
-        yAxisID: 'Humidity',
+        label: 'Proximity',
+        yAxisID: 'Proximity',
+        borderColor: 'rgba(24, 120, 240, 1)',
+        pointBoarderColor: 'rgba(24, 120, 240, 1)',
+        backgroundColor: 'rgba(24, 120, 240, 0.4)',
+        pointHoverBackgroundColor: 'rgba(24, 120, 240, 1)',
+        pointHoverBorderColor: 'rgba(24, 120, 240, 1)',
+        spanGaps: true,
+      },
+      {
+        fill: false,
+        label: 'Fuel',
+        yAxisID: 'Fuel',
+        borderColor: 'rgba(24, 120, 240, 1)',
+        pointBoarderColor: 'rgba(24, 120, 240, 1)',
+        backgroundColor: 'rgba(24, 120, 240, 0.4)',
+        pointHoverBackgroundColor: 'rgba(24, 120, 240, 1)',
+        pointHoverBorderColor: 'rgba(24, 120, 240, 1)',
+        spanGaps: true,
+      },
+      {
+        fill: false,
+        label: 'SteeringWheel',
+        yAxisID: 'SteeringWheel',
+        borderColor: 'rgba(24, 120, 240, 1)',
+        pointBoarderColor: 'rgba(24, 120, 240, 1)',
+        backgroundColor: 'rgba(24, 120, 240, 0.4)',
+        pointHoverBackgroundColor: 'rgba(24, 120, 240, 1)',
+        pointHoverBorderColor: 'rgba(24, 120, 240, 1)',
+        spanGaps: true,
+      },
+      {
+        fill: false,
+        label: 'WindshieldWiperDrop',
+        yAxisID: 'WindshieldWiperDrop',
         borderColor: 'rgba(24, 120, 240, 1)',
         pointBoarderColor: 'rgba(24, 120, 240, 1)',
         backgroundColor: 'rgba(24, 120, 240, 0.4)',
@@ -84,22 +117,49 @@ $(document).ready(() => {
   const chartOptions = {
     scales: {
       yAxes: [{
-        id: 'Temperature',
+        id: 'ExhaustPipeOxygen',
         type: 'linear',
         scaleLabel: {
-          labelString: 'Temperature (ºC)',
+          labelString: 'ExhaustPipeOxygen (V)',
           display: true,
         },
         position: 'left',
       },
       {
-        id: 'Humidity',
+        id: 'Proximity',
         type: 'linear',
         scaleLabel: {
-          labelString: 'Humidity (%)',
+          labelString: 'Proximity (m)',
           display: true,
         },
         position: 'right',
+      },
+      {
+        id: 'Fuel',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'Fuel (l)',
+          display: true,
+        },
+        position: 'right',
+      },
+      {
+        id: 'SteeringWheel',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'SteeringWheel (l)',
+          display: true,
+        },
+        position: 'right',
+      },
+      {
+        id: 'WindshieldWiperDrop',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'WindshieldWiperDrop (l)',
+          display: true,
+        },
+        position: 'left',
       }]
     }
   };
