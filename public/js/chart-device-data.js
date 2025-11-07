@@ -11,6 +11,7 @@ $(document).ready(() => {
     constructor(deviceId) {
       this.deviceId = deviceId;
       this.maxLen = 50;
+      this.timeData = new Array(this.maxLen);
       this.exhaustPipeOxygen = new Array(this.maxLen);
       this.proximity = new Array(this.maxLen);
       this.fuel = new Array(this.maxLen);
@@ -25,7 +26,6 @@ $(document).ready(() => {
       this.fuel.push(fuel);
       this.steeringWheel.push(steeringWheel);
       this.windshieldWiperDrop.push(windshieldWiperDrop);
-      // this.humidityData.push(humidity || null);
 
       if (this.timeData.length > this.maxLen) {
         this.timeData.shift();
