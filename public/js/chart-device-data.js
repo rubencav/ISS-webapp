@@ -202,7 +202,7 @@ $(document).ready(() => {
 
   // When a web socket message arrives:
   // 1. Unpack it
-  // 2. Validate it has date/time and temperature
+  // 2. Validate it has date/time
   // 3. Find or create a cached device to hold the telemetry data
   // 4. Append the telemetry data
   // 5. Update the chart UI
@@ -211,13 +211,13 @@ $(document).ready(() => {
       const messageData = JSON.parse(message.data);
       console.log(messageData);
 
-      // time and either temperature or humidity are required
-      // if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
-      //   return;
-      // }
+      // time required
+      if (!messageData.MessageDate) {
+        return;
+      }
 
       // find or add device to list of tracked devices
-      const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
+      const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId); // Fetch "myraspi" device
 
       if (existingDeviceData) {
         existingDeviceData.addData(messageData.MessageDate, 
@@ -228,7 +228,7 @@ $(document).ready(() => {
           messageData.IotData.windshieldWiperDrop
         );
       } else {
-        const newDeviceData = new DeviceData(messageData.deviceId);
+        const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
