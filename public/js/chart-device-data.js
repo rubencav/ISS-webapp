@@ -227,6 +227,8 @@ $(document).ready(() => {
           messageData.IotData.steeringWheel,
           messageData.IotData.windshieldWiperDrop
         );
+
+        console.log("existingDeviceData ", existingDeviceData);
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
@@ -239,6 +241,7 @@ $(document).ready(() => {
           messageData.IotData.steeringWheel,
           messageData.IotData.windshieldWiperDrop
         );
+        console.log("newDeviceData ", newDeviceData);
 
         // add device to the UI list
         const node = document.createElement('option');
