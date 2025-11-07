@@ -209,7 +209,7 @@ $(document).ready(() => {
   webSocket.onmessage = function onMessage(message) {
     try {
       const messageData = JSON.parse(message.data);
-      console.log(messageData);
+      console.log("test msg data ", messageData);
 
       // time required
       if (!messageData.MessageDate) {
