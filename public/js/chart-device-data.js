@@ -191,11 +191,11 @@ $(document).ready(() => {
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
     chartData.labels = device.timeData;
-    chartData.datasets[0].data = device.ExhaustPipeOxygen;
-    chartData.datasets[1].data = device.Proximity;
-    chartData.datasets[2].data = device.Fuel;
-    chartData.datasets[3].data = device.SteeringWheel;
-    chartData.datasets[4].data = device.WindshieldWiperDrop;
+    chartData.datasets[0].data = device.exhaustPipeOxygen;
+    chartData.datasets[1].data = device.proximity;
+    chartData.datasets[2].data = device.fuel;
+    chartData.datasets[3].data = device.steeringWheel;
+    chartData.datasets[4].data = device.windshieldWiperDrop;
     myLineChart.update();
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
