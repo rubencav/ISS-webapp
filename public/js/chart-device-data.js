@@ -46,11 +46,8 @@ $(document).ready(() => {
 
     // Find a device based on its Id
     findDevice(deviceId) {
-      console.log("deviceId", deviceId);
-      console.log("this.devices", this.devices);
       for (let i = 0; i < this.devices.length; ++i) {
         if (this.devices[i].deviceId === deviceId) {
-          console.log("this.devices[i]", this.devices[i]);
           return this.devices[i];
         }
       }
@@ -193,14 +190,12 @@ $(document).ready(() => {
   const listOfDevices = document.getElementById('listOfDevices');
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
-    console.log("device", device);
     chartData.labels = device.timeData;
     chartData.datasets[0].data = device.exhaustPipeOxygen;
     chartData.datasets[1].data = device.proximity;
     chartData.datasets[2].data = device.fuel;
     chartData.datasets[3].data = device.steeringWheel;
     chartData.datasets[4].data = device.windshieldWiperDrop;
-    console.log("chartData", chartData);
     myLineChart.update();
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
@@ -214,16 +209,14 @@ $(document).ready(() => {
   webSocket.onmessage = function onMessage(message) {
     try {
       const messageData = JSON.parse(message.data);
-      console.log("test msg data ", messageData);
 
       // time required
       if (!messageData.MessageDate) {
         return;
       }
-      console.log("messageData.DeviceId", messageData.DeviceId);
+
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId); // Fetch "myraspi" device
-      console.log("existingDeviceData pre", existingDeviceData);
 
       if (existingDeviceData) {
         existingDeviceData.addData(messageData.MessageDate, 
@@ -234,7 +227,6 @@ $(document).ready(() => {
           messageData.IotData.windshieldWiperDrop
         );
 
-        console.log("existingDeviceData post", existingDeviceData);
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
@@ -247,7 +239,6 @@ $(document).ready(() => {
           messageData.IotData.steeringWheel,
           messageData.IotData.windshieldWiperDrop
         );
-        console.log("newDeviceData ", newDeviceData);
 
         // add device to the UI list
         const node = document.createElement('option');
