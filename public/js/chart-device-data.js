@@ -221,23 +221,23 @@ $(document).ready(() => {
 
       if (existingDeviceData) {
         existingDeviceData.addData(messageData.MessageDate, 
-          messageData.IotData.ExhaustPipeOxygen,
-          messageData.IotData.Proximity,
-          messageData.IotData.Fuel,
-          messageData.IotData.SteeringWheel,
-          messageData.IotData.WindshieldWiperDrop
+          messageData.IotData.exhaustPipeOxygen,
+          messageData.IotData.proximity,
+          messageData.IotData.fuel,
+          messageData.IotData.steeringWheel,
+          messageData.IotData.windshieldWiperDrop
         );
       } else {
-        const newDeviceData = new DeviceData(messageData.DeviceId);
+        const newDeviceData = new DeviceData(messageData.deviceId);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
         newDeviceData.addData(messageData.MessageDate, 
-          messageData.IotData.ExhaustPipeOxygen,
-          messageData.IotData.Proximity,
-          messageData.IotData.Fuel,
-          messageData.IotData.SteeringWheel,
-          messageData.IotData.WindshieldWiperDrop
+          messageData.IotData.exhaustPipeOxygen,
+          messageData.IotData.proximity,
+          messageData.IotData.fuel,
+          messageData.IotData.steeringWheel,
+          messageData.IotData.windshieldWiperDrop
         );
 
         // add device to the UI list
