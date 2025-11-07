@@ -218,6 +218,7 @@ $(document).ready(() => {
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId); // Fetch "myraspi" device
+      console.log("existingDeviceData pre", existingDeviceData);
 
       if (existingDeviceData) {
         existingDeviceData.addData(messageData.MessageDate, 
@@ -228,7 +229,7 @@ $(document).ready(() => {
           messageData.IotData.windshieldWiperDrop
         );
 
-        console.log("existingDeviceData ", existingDeviceData);
+        console.log("existingDeviceData post", existingDeviceData);
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
