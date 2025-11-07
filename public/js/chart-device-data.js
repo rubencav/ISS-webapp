@@ -11,20 +11,29 @@ $(document).ready(() => {
     constructor(deviceId) {
       this.deviceId = deviceId;
       this.maxLen = 50;
-      this.timeData = new Array(this.maxLen);
-      this.temperatureData = new Array(this.maxLen);
-      this.humidityData = new Array(this.maxLen);
+      this.exhaustPipeOxygen = new Array(this.maxLen);
+      this.proximity = new Array(this.maxLen);
+      this.fuel = new Array(this.maxLen);
+      this.steeringWheel = new Array(this.maxLen);
+      this.windshieldWiperDrop = new Array(this.maxLen);   
     }
 
-    addData(time, temperature, humidity) {
+    addData(time, exhaustPipeOxygen, proximity, fuel, steeringWheel, windshieldWiperDrop) {
       this.timeData.push(time);
-      this.temperatureData.push(temperature);
-      this.humidityData.push(humidity || null);
+      this.exhaustPipeOxygen.push(exhaustPipeOxygen);
+      this.proximity.push(proximity);
+      this.fuel.push(fuel);
+      this.steeringWheel.push(steeringWheel);
+      this.windshieldWiperDrop.push(windshieldWiperDrop);
+      // this.humidityData.push(humidity || null);
 
       if (this.timeData.length > this.maxLen) {
         this.timeData.shift();
-        this.temperatureData.shift();
-        this.humidityData.shift();
+        this.exhaustPipeOxygen.shift();
+        this.proximity.shift();
+        this.fuel.shift();
+        this.steeringWheel.shift();
+        this.windshieldWiperDrop.shift();
       }
     }
   }
@@ -182,8 +191,11 @@ $(document).ready(() => {
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
     chartData.labels = device.timeData;
-    chartData.datasets[0].data = device.temperatureData;
-    chartData.datasets[1].data = device.humidityData;
+    chartData.datasets[0].data = device.ExhaustPipeOxygen;
+    chartData.datasets[1].data = device.Proximity;
+    chartData.datasets[2].data = device.Fuel;
+    chartData.datasets[3].data = device.SteeringWheel;
+    chartData.datasets[4].data = device.WindshieldWiperDrop;
     myLineChart.update();
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
@@ -200,21 +212,32 @@ $(document).ready(() => {
       console.log(messageData);
 
       // time and either temperature or humidity are required
-      if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
-        return;
-      }
+      // if (!messageData.MessageDate || (!messageData.IotData.temperature && !messageData.IotData.humidity)) {
+      //   return;
+      // }
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
       if (existingDeviceData) {
-        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity);
+        existingDeviceData.addData(messageData.MessageDate, 
+          messageData.IotData.exhaustPipeOxygen,
+          messageData.IotData.proximity,
+          messageData.IotData.fuel,
+          messageData.IotData.steeringWheel,
+          messageData.IotData.windshieldWiperDrop
+        );
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
-        newDeviceData.addData(messageData.MessageDate, messageData.IotData.temperature, messageData.IotData.humidity);
+        newDeviceData.addData(messageData.MessageDate, 
+          messageData.IotData.exhaustPipeOxygen,
+          messageData.IotData.proximity,
+          messageData.IotData.fuel,
+          messageData.IotData.steeringWheel,
+          messageData.IotData.windshieldWiperDrop);
 
         // add device to the UI list
         const node = document.createElement('option');
